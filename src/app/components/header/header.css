@@ -1,0 +1,15 @@
+.navbar-brand img {
+object-fit: contain;
+}
+
+
+.btn-danger {
+background-color: #f84464;
+border-color: #f84464;
+}
+
+
+.btn-danger:hover {
+background-color: #e03a58;
+border-color: #e03a58;
+}

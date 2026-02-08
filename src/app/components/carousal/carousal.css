@@ -1,0 +1,17 @@
+
+/* BookMyShow Carousel Styling */
+.bms-carousel {
+  margin-top: 10px;
+}
+
+.bms-carousel img {
+  height: 320px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+  .bms-carousel img {
+    height: 180px;
+  }
+}

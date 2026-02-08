@@ -1,0 +1,33 @@
+
+/* BookMyShow Original Menu Styling */
+.bms-original-menu {
+  background-color: #f6f6f8;
+  font-size: 14px;
+}
+
+.bms-original-menu .nav-link {
+  color: #141313;
+  padding: 10px 14px;
+  position: relative;
+}
+
+.bms-original-menu .nav-link:hover {
+  color: #060606;
+}
+
+/* Active underline */
+.bms-original-menu .nav-link.active {
+  color: #191818;
+  font-weight: 600;
+}
+
+.bms-original-menu .nav-link.active::after {
+  content: '';
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 4px;
+  height: 3px;
+  background-color: #f84464;
+  border-radius: 2px;
+}

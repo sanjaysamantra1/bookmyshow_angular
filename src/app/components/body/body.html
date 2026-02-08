@@ -1,0 +1,46 @@
+
+<!-- body.component.html -->
+<div class="container-fluid bms-body py-4">
+
+  <!-- Recommended Movies -->
+  <div class="container mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h5 class="fw-bold">Recommended Movies</h5>
+      <a class="text-danger text-decoration-none">See All ›</a>
+    </div>
+
+    <div class="row g-3">
+      @for (movie of movies; track movie.title) {
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+          <div class="card border-0 movie-card">
+            <img [src]="movie.poster" class="card-img-top rounded" />
+            <div class="card-body px-0">
+              <h6 class="mb-1">{{ movie.title }}</h6>
+              <small class="text-muted">{{ movie.genre }}</small>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Live Events -->
+  <div class="container mb-5">
+    <h5 class="fw-bold mb-3">The Best Of Live Events</h5>
+
+    <div class="row g-3">
+      @for (event of events; track event.name) {
+        <div class="col-6 col-sm-4 col-md-3 col-lg-2">
+          <div class="card border-0 event-card">
+            <img [src]="event.banner" class="card-img-top rounded" />
+            <div class="card-body px-0">
+              <h6 class="mb-1">{{ event.name }}</h6>
+              <small class="text-muted">{{ event.location }}</small>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,52 @@
+/* ===== ORIGINAL BOOKMYSHOW FOOTER STYLES ===== */
+.bms-footer-original {
+  background-color: #1f2533;
+  color: #c7c7c7;
+  font-size: 12px;
+}
+
+.bms-cta-bar {
+  background-color: #2b3148;
+  padding: 14px 0;
+}
+
+.btn-bms {
+  background-color: #f84464;
+  color: #fff;
+  font-size: 13px;
+  padding: 6px 14px;
+}
+
+.footer-section {
+  margin-bottom: 22px;
+}
+
+.footer-section h6 {
+  font-size: 13px;
+  color: #ffffff;
+  margin-bottom: 6px;
+}
+
+.footer-section p {
+  margin: 0;
+  line-height: 1.8;
+}
+
+.bms-footer-social {
+  border-top: 1px solid #333;
+  padding: 25px 0;
+}
+
+.social-icons span {
+  display: inline-block;
+  margin: 0 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.bms-footer-copy {
+  border-top: 1px solid #333;
+  text-align: center;
+  padding: 12px 0;
+  font-size: 11px;
+}
