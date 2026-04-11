@@ -5,7 +5,7 @@
     <div class="section-header d-flex justify-content-between align-items-center mb-3">
       <div>
         <h5 class="fw-bold mb-0">Recommended Movies</h5>
-        <span class="section-sub">Based on your city · Bengaluru</span>
+        <span class="section-sub">Based on your city · {{ cityService.selectedCity() }}</span>
       </div>
       <a routerLink="/movies" class="see-all-link">See All ›</a>
     </div>

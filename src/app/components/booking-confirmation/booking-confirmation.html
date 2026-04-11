@@ -1,0 +1,69 @@
+@if (booking) {
+<div class="confirm-page container py-5">
+
+  <!-- Success header -->
+  <div class="confirm-hero text-center mb-5">
+    <div class="success-anim">✅</div>
+    <h3 class="fw-bold mt-3 mb-1">Booking Confirmed!</h3>
+    <p class="text-muted">Your tickets are booked. Have a great time!</p>
+    <div class="booking-id-badge">Booking ID: <strong>{{ booking.id }}</strong></div>
+  </div>
+
+  <div class="row g-4 justify-content-center">
+    <!-- Ticket card -->
+    <div class="col-lg-7">
+      <div class="ticket-card">
+        <!-- Ticket top -->
+        <div class="ticket-top d-flex gap-4">
+          <img [src]="booking.moviePoster" class="ticket-poster" [alt]="booking.movieTitle">
+          <div class="ticket-info">
+            <h5 class="ticket-movie">{{ booking.movieTitle }}</h5>
+            <p class="ticket-meta">📍 {{ booking.showTime.venue }}</p>
+            <p class="ticket-meta">🕐 {{ booking.showTime.time }} · {{ booking.showTime.format }}</p>
+            <p class="ticket-meta">📅 {{ booking.bookedAt }}</p>
+            <p class="ticket-meta">🏙️ {{ booking.city }}</p>
+          </div>
+        </div>
+
+        <div class="ticket-tear"></div>
+
+        <!-- Ticket bottom: seat summary -->
+        <div class="ticket-bottom">
+          <div class="seat-summary">
+            @for (s of booking.seats; track s.category) {
+              <div class="seat-row">
+                <span class="seat-chip">{{ s.category }} × {{ s.count }}</span>
+                <span class="seat-amt">₹{{ s.count * s.pricePerSeat | number }}</span>
+              </div>
+            }
+          </div>
+          <div class="ticket-total-row">
+            <span>Total Paid</span>
+            <span class="ticket-total-amt">₹{{ booking.totalAmount | number }}</span>
+          </div>
+          <p class="convenience-note">Includes ₹{{ booking.convenienceFee | number }} convenience fee</p>
+        </div>
+
+        <!-- Barcode decoration -->
+        <div class="barcode-strip">
+          <div class="barcode-img">| || ||| | || ||| |||| || | | ||| || | | ||| |</div>
+          <span class="barcode-id">{{ booking.id }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="col-lg-7">
+      <div class="confirm-actions d-flex gap-3 flex-wrap justify-content-center">
+        <a routerLink="/bookings" class="btn-action-outline">📋 View All Bookings</a>
+        <a routerLink="/" class="btn-action-primary">🏠 Back to Home</a>
+      </div>
+    </div>
+  </div>
+</div>
+} @else {
+  <div class="container py-5 text-center">
+    <p>Booking not found.</p>
+    <a routerLink="/">Go Home</a>
+  </div>
+}

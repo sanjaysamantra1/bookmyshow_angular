@@ -25,7 +25,7 @@
               <p class="hero-director">Directed by <strong>{{ extras.director }}</strong></p>
             }
             <div class="hero-actions mt-3 d-flex gap-3 flex-wrap">
-              <a routerLink="/movies" class="btn-book-now">🎟 Book Tickets</a>
+              <a [routerLink]="['/movies', movie.id, 'book']" class="btn-book-now">🎟 Book Tickets</a>
               <button class="btn-wishlist">♡ Wishlist</button>
             </div>
           </div>
@@ -114,7 +114,7 @@
           </table>
         </div>
 
-        <a routerLink="/movies" class="btn-book-now d-block text-center mb-3">🎟 Book Tickets</a>
+        <a [routerLink]="['/movies', movie.id, 'book']" class="btn-book-now d-block text-center mb-3">🎟 Book Tickets</a>
         <a routerLink="/movies" class="btn-back">← Back to Movies</a>
       </div>
 

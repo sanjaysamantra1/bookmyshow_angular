@@ -1,0 +1,49 @@
+<div class="bookings-page container py-4">
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <h4 class="fw-bold mb-0">My Bookings</h4>
+    <a routerLink="/" class="btn-back-link">← Home</a>
+  </div>
+
+  @if (userBookings.length === 0) {
+    <div class="empty-state text-center py-5">
+      <div class="empty-icon">🎟️</div>
+      <h5 class="fw-bold mt-3 mb-2">No bookings yet</h5>
+      <p class="text-muted mb-4">Looks like you haven't booked any tickets yet.</p>
+      <a routerLink="/movies" class="btn-explore">Explore Movies</a>
+    </div>
+  } @else {
+    <div class="bookings-list">
+      @for (booking of userBookings; track booking.id) {
+        <div class="booking-item" [class.cancelled]="booking.status === 'cancelled'">
+          <div class="booking-left d-flex gap-3">
+            <img [src]="booking.moviePoster" class="booking-poster" [alt]="booking.movieTitle">
+            <div class="booking-info">
+              <div class="d-flex align-items-center gap-2 mb-1">
+                <h6 class="booking-movie-title mb-0">{{ booking.movieTitle }}</h6>
+                <span class="status-pill" [class.status-confirmed]="booking.status==='confirmed'" [class.status-cancelled]="booking.status==='cancelled'">
+                  {{ booking.status | titlecase }}
+                </span>
+              </div>
+              <p class="booking-meta">🕐 {{ booking.showTime.time }} · {{ booking.showTime.format }}</p>
+              <p class="booking-meta">📍 {{ booking.showTime.venue }}</p>
+              <p class="booking-meta">🏙️ {{ booking.city }} · 📅 {{ booking.bookedAt }}</p>
+              <div class="seats-summary">
+                @for (s of booking.seats; track s.category) {
+                  <span class="seat-tag">{{ s.category }} × {{ s.count }}</span>
+                }
+              </div>
+            </div>
+          </div>
+          <div class="booking-right text-end">
+            <p class="booking-amount">₹{{ booking.totalAmount | number }}</p>
+            <p class="booking-id-text">{{ booking.id }}</p>
+            @if (booking.status === 'confirmed') {
+              <a [routerLink]="['/booking-confirmation', booking.id]" class="btn-view-ticket">View Ticket</a>
+              <button class="btn-cancel" (click)="cancel(booking.id)">Cancel</button>
+            }
+          </div>
+        </div>
+      }
+    </div>
+  }
+</div>

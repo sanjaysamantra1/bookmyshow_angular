@@ -1,0 +1,119 @@
+.booking-page { background: #f5f5f5; min-height: calc(100vh - 110px); }
+
+/* Banner */
+.booking-banner { position: relative; overflow: hidden; }
+.banner-blur {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  filter: blur(20px) brightness(0.3); transform: scale(1.1);
+}
+.banner-content { position: relative; }
+.banner-poster { width: 56px; height: 80px; object-fit: cover; border-radius: 6px; flex-shrink: 0; }
+.banner-title { color: #fff; font-weight: 800; font-size: 18px; }
+.banner-meta { color: #ccc; font-size: 12px; }
+
+/* Step bar */
+.steps { display: flex; align-items: center; }
+.step { display: flex; align-items: center; gap: 8px; }
+.step-num {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: #ddd; color: #888; font-size: 12px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.step.active .step-num { background: #f84464; color: #fff; }
+.step.done .step-num { background: #28a745; color: #fff; }
+.step-label { font-size: 13px; color: #888; font-weight: 500; }
+.step.active .step-label { color: #f84464; font-weight: 700; }
+.step.done .step-label { color: #28a745; }
+.step-line { flex: 1; height: 2px; background: #ddd; min-width: 32px; margin: 0 8px; }
+
+/* Cards */
+.booking-card { background: #fff; border-radius: 12px; padding: 24px; box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
+.booking-card-title { font-size: 16px; font-weight: 800; margin-bottom: 20px; color: #1a1a1a; }
+
+/* Show times */
+.showtime-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 12px; }
+.showtime-tile {
+  border: 2px solid #e8e8e8; border-radius: 10px; padding: 14px 16px; cursor: pointer; transition: all 0.15s;
+}
+.showtime-tile:hover { border-color: #f84464; }
+.showtime-tile.selected { border-color: #f84464; background: #fff5f7; }
+.show-time { font-size: 18px; font-weight: 800; margin: 0 0 2px; color: #1a1a1a; }
+.show-format { font-size: 11px; font-weight: 700; color: #f84464; background: #fff0f3; border-radius: 4px; display: inline-block; padding: 1px 6px; margin-bottom: 6px; }
+.show-venue { font-size: 11px; color: #777; margin: 0 0 6px; }
+.show-price { font-size: 13px; font-weight: 700; color: #1a1a1a; margin: 0; }
+
+/* Screen */
+.screen-wrap { text-align: center; margin-bottom: 24px; }
+.screen-line { height: 4px; background: linear-gradient(90deg, transparent, #ccc, transparent); border-radius: 2px; margin-bottom: 6px; }
+.screen-label { font-size: 10px; color: #aaa; font-weight: 700; letter-spacing: 2px; }
+
+/* Seat categories */
+.seat-categories { display: flex; flex-direction: column; gap: 12px; }
+.seat-cat-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border: 1.5px solid #e8e8e8; border-radius: 10px; }
+.seat-cat-name { font-size: 14px; font-weight: 700; color: #1a1a1a; display: block; }
+.seat-cat-price { font-size: 12px; color: #888; display: block; margin-top: 2px; }
+.seat-counter { display: flex; align-items: center; gap: 12px; }
+.counter-btn {
+  width: 32px; height: 32px; border-radius: 50%; border: 2px solid #e8e8e8;
+  background: #fff; font-size: 18px; font-weight: 300; cursor: pointer; color: #333;
+  display: flex; align-items: center; justify-content: center; line-height: 1;
+  transition: all 0.12s;
+}
+.counter-btn:not(:disabled):hover { border-color: #f84464; color: #f84464; }
+.counter-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+.counter-val { font-size: 18px; font-weight: 800; color: #1a1a1a; min-width: 20px; text-align: center; }
+
+/* Buttons */
+.btn-primary-bms {
+  background: #f84464; color: #fff; border: none;
+  padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 700;
+  cursor: pointer; transition: background 0.15s;
+}
+.btn-primary-bms:hover:not(:disabled) { background: #e03a58; }
+.btn-primary-bms:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-outline-bms {
+  background: #fff; color: #f84464; border: 2px solid #f84464;
+  padding: 12px 20px; border-radius: 8px; font-size: 14px; font-weight: 700;
+  cursor: pointer; transition: all 0.15s;
+}
+.btn-outline-bms:hover { background: #fff5f7; }
+
+/* Payment */
+.pay-tabs { display: flex; gap: 8px; }
+.pay-tab {
+  flex: 1; padding: 10px; border: 2px solid #e8e8e8; border-radius: 8px;
+  background: #fff; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.12s;
+}
+.pay-tab.active { border-color: #f84464; color: #f84464; background: #fff5f7; }
+.pay-label { font-size: 12px; font-weight: 600; color: #555; display: block; margin-bottom: 6px; }
+.pay-input {
+  width: 100%; border: 1.5px solid #e0e0e0; border-radius: 8px;
+  padding: 10px 14px; font-size: 14px; outline: none; transition: border-color 0.2s;
+}
+.pay-input:focus { border-color: #f84464; }
+.wallet-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.wallet-opt {
+  padding: 14px; border: 2px solid #e8e8e8; border-radius: 10px;
+  text-align: center; font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.12s;
+}
+.wallet-opt:hover { border-color: #f84464; color: #f84464; }
+.secure-note { font-size: 12px; color: #888; text-align: center; }
+
+/* Spinner */
+.spinner {
+  display: inline-block; width: 14px; height: 14px;
+  border: 2px solid rgba(255,255,255,0.3); border-radius: 50%;
+  border-top-color: #fff; animation: spin 0.7s linear infinite; margin-right: 6px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Summary */
+.summary-card { background: #fff; border-radius: 12px; padding: 20px; box-shadow: 0 1px 6px rgba(0,0,0,0.07); }
+.summary-title { font-size: 15px; font-weight: 800; margin-bottom: 16px; }
+.summary-poster { width: 50px; height: 70px; object-fit: cover; border-radius: 5px; flex-shrink: 0; }
+.summary-movie-name { font-size: 14px; font-weight: 700; margin: 0 0 5px; color: #1a1a1a; }
+.summary-detail { font-size: 12px; color: #777; margin: 0 0 3px; }
+.summary-divider { border-color: #f0f0f0; margin: 10px 0; }
+.summary-row { display: flex; justify-content: space-between; font-size: 13px; color: #444; margin-bottom: 6px; }
+.summary-total { display: flex; justify-content: space-between; font-size: 15px; font-weight: 800; color: #1a1a1a; margin-top: 4px; }

@@ -1,0 +1,202 @@
+@if (movie) {
+<div class="booking-page">
+
+  <!-- Movie banner strip -->
+  <div class="booking-banner">
+    <div class="banner-blur" [style.background-image]="'url(' + movie.poster + ')'"></div>
+    <div class="banner-content container d-flex align-items-center gap-3 py-3">
+      <img [src]="movie.poster" class="banner-poster" [alt]="movie.title">
+      <div>
+        <h5 class="banner-title mb-1">{{ movie.title }}</h5>
+        <p class="banner-meta mb-0">{{ movie.genre.join(' · ') }} · {{ movie.certification }} · {{ cityService.selectedCity() }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step indicator -->
+  <div class="step-bar container py-3">
+    <div class="steps d-flex gap-0">
+      <div class="step" [class.active]="step === 'showtime'" [class.done]="step !== 'showtime'">
+        <span class="step-num">1</span><span class="step-label">Show Time</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" [class.active]="step === 'seats'" [class.done]="step === 'payment'">
+        <span class="step-num">2</span><span class="step-label">Select Seats</span>
+      </div>
+      <div class="step-line"></div>
+      <div class="step" [class.active]="step === 'payment'">
+        <span class="step-num">3</span><span class="step-label">Payment</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container pb-5">
+    <div class="row g-4">
+
+      <!-- ── LEFT: Main content ── -->
+      <div class="col-lg-8">
+
+        <!-- STEP 1: Show time -->
+        @if (step === 'showtime') {
+          <div class="booking-card">
+            <h6 class="booking-card-title">Select Show Time</h6>
+            <div class="showtime-grid">
+              @for (show of showTimes; track show.id) {
+                <div class="showtime-tile" [class.selected]="selectedShow?.id === show.id" (click)="selectShow(show)">
+                  <p class="show-time">{{ show.time }}</p>
+                  <p class="show-format">{{ show.format }}</p>
+                  <p class="show-venue">{{ show.venue }}</p>
+                  <p class="show-price">₹{{ show.price }}</p>
+                </div>
+              }
+            </div>
+            <button class="btn-primary-bms mt-4" [disabled]="!selectedShow" (click)="proceedToSeats()">
+              Continue to Seat Selection →
+            </button>
+          </div>
+        }
+
+        <!-- STEP 2: Seat selection -->
+        @if (step === 'seats') {
+          <div class="booking-card">
+            <h6 class="booking-card-title">Select Seats</h6>
+            <p class="text-muted small mb-4">Max 10 seats per booking. Prices shown per seat.</p>
+
+            <!-- Screen illustration -->
+            <div class="screen-wrap">
+              <div class="screen-line"></div>
+              <p class="screen-label">SCREEN</p>
+            </div>
+
+            <!-- Seat categories -->
+            <div class="seat-categories">
+              @for (cat of seatCategories; track cat.category) {
+                <div class="seat-cat-row">
+                  <div class="seat-cat-info">
+                    <span class="seat-cat-name">{{ cat.category }}</span>
+                    <span class="seat-cat-price">₹{{ selectedShow ? (selectedShow.price * cat.multiplier | number:'1.0-0') : '—' }} per seat</span>
+                  </div>
+                  <div class="seat-counter">
+                    <button class="counter-btn" (click)="decrement(cat.category)" [disabled]="!seatCounts[cat.category]">−</button>
+                    <span class="counter-val">{{ seatCounts[cat.category] || 0 }}</span>
+                    <button class="counter-btn" (click)="increment(cat.category)" [disabled]="totalSeats >= 10">+</button>
+                  </div>
+                </div>
+              }
+            </div>
+
+            <div class="d-flex gap-2 mt-4">
+              <button class="btn-outline-bms" (click)="step='showtime'">← Back</button>
+              <button class="btn-primary-bms flex-fill" [disabled]="totalSeats === 0" (click)="proceedToPayment()">
+                Proceed to Payment ({{ totalSeats }} seat{{ totalSeats !== 1 ? 's' : '' }}) →
+              </button>
+            </div>
+          </div>
+        }
+
+        <!-- STEP 3: Payment -->
+        @if (step === 'payment') {
+          <div class="booking-card">
+            <h6 class="booking-card-title">Payment</h6>
+
+            <!-- Payment method tabs -->
+            <div class="pay-tabs mb-4">
+              <button class="pay-tab" [class.active]="paymentMethod==='card'" (click)="paymentMethod='card'">💳 Card</button>
+              <button class="pay-tab" [class.active]="paymentMethod==='upi'" (click)="paymentMethod='upi'">📱 UPI</button>
+              <button class="pay-tab" [class.active]="paymentMethod==='wallet'" (click)="paymentMethod='wallet'">👛 Wallet</button>
+            </div>
+
+            @if (paymentMethod === 'card') {
+              <div class="row g-3">
+                <div class="col-12">
+                  <label class="pay-label">Card Number</label>
+                  <input class="pay-input" type="text" [(ngModel)]="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                </div>
+                <div class="col-12">
+                  <label class="pay-label">Cardholder Name</label>
+                  <input class="pay-input" type="text" [(ngModel)]="cardName" placeholder="Name on card">
+                </div>
+                <div class="col-6">
+                  <label class="pay-label">Expiry</label>
+                  <input class="pay-input" type="text" [(ngModel)]="expiry" placeholder="MM/YY" maxlength="5">
+                </div>
+                <div class="col-6">
+                  <label class="pay-label">CVV</label>
+                  <input class="pay-input" type="password" [(ngModel)]="cvv" placeholder="•••" maxlength="3">
+                </div>
+              </div>
+            }
+            @if (paymentMethod === 'upi') {
+              <div>
+                <label class="pay-label">UPI ID</label>
+                <input class="pay-input" type="text" [(ngModel)]="upiId" placeholder="yourname@upi">
+                <p class="text-muted small mt-2">You will receive a payment request on your UPI app</p>
+              </div>
+            }
+            @if (paymentMethod === 'wallet') {
+              <div class="wallet-options">
+                <div class="wallet-opt">📱 Paytm</div>
+                <div class="wallet-opt">💚 PhonePe</div>
+                <div class="wallet-opt">🔵 Amazon Pay</div>
+                <div class="wallet-opt">🟡 Mobikwik</div>
+              </div>
+            }
+
+            <div class="d-flex gap-2 mt-4">
+              <button class="btn-outline-bms" (click)="step='seats'">← Back</button>
+              <button class="btn-primary-bms flex-fill" (click)="confirmPayment()" [disabled]="isProcessing">
+                @if (isProcessing) { <span class="spinner"></span> Processing... }
+                @else { Pay ₹{{ totalAmount | number }} Securely 🔒 }
+              </button>
+            </div>
+
+            <p class="secure-note mt-3"><span>🔒</span> 256-bit SSL secured. Your payment info is safe.</p>
+          </div>
+        }
+
+      </div>
+
+      <!-- ── RIGHT: Booking summary ── -->
+      <div class="col-lg-4">
+        <div class="summary-card sticky-top" style="top: 80px;">
+          <h6 class="summary-title">Booking Summary</h6>
+
+          <div class="summary-movie d-flex gap-3 mb-3">
+            <img [src]="movie.poster" class="summary-poster" [alt]="movie.title">
+            <div>
+              <p class="summary-movie-name">{{ movie.title }}</p>
+              @if (selectedShow) {
+                <p class="summary-detail">🕐 {{ selectedShow.time }} · {{ selectedShow.format }}</p>
+                <p class="summary-detail">📍 {{ selectedShow.venue }}</p>
+              }
+            </div>
+          </div>
+
+          @if (seatsBreakdown.length) {
+            <hr class="summary-divider">
+            <div class="summary-seats">
+              @for (s of seatsBreakdown; track s.category) {
+                <div class="summary-row">
+                  <span>{{ s.category }} × {{ s.count }}</span>
+                  <span>₹{{ s.count * s.pricePerSeat | number }}</span>
+                </div>
+              }
+            </div>
+            <hr class="summary-divider">
+            <div class="summary-row"><span>Subtotal</span><span>₹{{ subtotal | number }}</span></div>
+            <div class="summary-row text-muted small"><span>Convenience fee (5%)</span><span>₹{{ convenienceFee | number }}</span></div>
+            <hr class="summary-divider">
+            <div class="summary-total"><span>Total</span><span>₹{{ totalAmount | number }}</span></div>
+          }
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+} @else {
+  <div class="container py-5 text-center">
+    <p>Movie not found.</p>
+    <a routerLink="/movies">← Back to movies</a>
+  </div>
+}

@@ -8,29 +8,81 @@
       </a>
 
       <!-- Search -->
-      <div class="header-search flex-grow-1 d-none d-md-flex">
-        <span class="search-icon">🔍</span>
-        <input type="text" class="search-input" placeholder="Search for Movies, Events, Plays, Sports and Activities">
+      <div class="search-wrap flex-grow-1 d-none d-md-block position-relative">
+        <div class="header-search">
+          <span class="search-icon">🔍</span>
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Search for Movies, Events, Plays, Sports and Activities"
+            [(ngModel)]="searchQuery"
+            (input)="onSearchInput(searchQuery)"
+            (keydown)="onSearchKeydown($event)"
+          >
+          @if (searchQuery) {
+            <button class="search-clear" (click)="searchService.clear(); searchQuery=''">✕</button>
+          }
+        </div>
+
+        <!-- Search dropdown -->
+        @if (searchService.isOpen() && searchService.results().length > 0) {
+          <div class="search-dropdown">
+            @for (result of searchService.results(); track result.id + result.type) {
+              <div class="search-result-item" (click)="navigateResult(result.type, result.id)">
+                <img [src]="result.image" class="result-img" alt="">
+                <div class="result-text">
+                  <span class="result-title">{{ result.title }}</span>
+                  <span class="result-sub">{{ result.subtitle }}</span>
+                </div>
+                <span class="result-type-badge" [class.badge-movie]="result.type==='movie'" [class.badge-event]="result.type==='event'">
+                  {{ result.type === 'movie' ? '🎬 Movie' : '🎭 Event' }}
+                </span>
+              </div>
+            }
+          </div>
+        }
+        @if (searchService.isOpen() && searchService.results().length === 0 && searchQuery.length >= 2) {
+          <div class="search-dropdown search-empty">
+            <p class="mb-0">No results found for "<strong>{{ searchQuery }}</strong>"</p>
+          </div>
+        }
       </div>
 
       <!-- Right controls -->
       <div class="d-flex align-items-center gap-2 flex-shrink-0">
 
         <!-- City picker -->
-        <button class="city-btn d-none d-md-flex">
-          <span class="city-name">Bengaluru</span>
-          <span class="city-caret">▾</span>
-        </button>
+        <div class="city-menu-wrap d-none d-md-block position-relative">
+          <button class="city-btn" (click)="toggleCityDropdown()">
+            <span class="city-icon">📍</span>
+            <span class="city-name">{{ cityService.selectedCity() }}</span>
+            <span class="city-caret">▾</span>
+          </button>
+          @if (cityDropdownOpen) {
+            <div class="city-dropdown">
+              <p class="city-dropdown-title">Select your city</p>
+              <div class="city-grid">
+                @for (city of cityService.cities; track city) {
+                  <button
+                    class="city-option"
+                    [class.city-selected]="cityService.selectedCity() === city"
+                    (click)="selectCity(city)"
+                  >{{ city }}</button>
+                }
+              </div>
+            </div>
+          }
+        </div>
 
+        <!-- Auth -->
         @if (auth.isLoggedIn()) {
-          <!-- Logged-in user dropdown -->
-          <div class="user-menu-wrap">
-            <button class="user-btn" (click)="toggleDropdown()">
+          <div class="user-menu-wrap position-relative">
+            <button class="user-btn" (click)="toggleUserDropdown()">
               <span class="user-avatar">{{ auth.currentUser()?.name?.charAt(0)?.toUpperCase() }}</span>
               <span class="user-name d-none d-md-inline">{{ auth.currentUser()?.name }}</span>
               <span class="city-caret">▾</span>
             </button>
-            @if (dropdownOpen) {
+            @if (userDropdownOpen) {
               <div class="user-dropdown">
                 <div class="dropdown-user-info">
                   <span class="dropdown-avatar">{{ auth.currentUser()?.name?.charAt(0)?.toUpperCase() }}</span>
@@ -40,16 +92,9 @@
                   </div>
                 </div>
                 <hr class="dropdown-divider">
-                <a routerLink="/bookings" class="dropdown-item-link" (click)="dropdownOpen=false">
-                  🎟️ My Bookings
-                </a>
-                <a routerLink="/" class="dropdown-item-link" (click)="dropdownOpen=false">
-                  ⚙️ Settings
-                </a>
+                <a routerLink="/bookings" class="dropdown-item-link" (click)="userDropdownOpen=false">🎟️ My Bookings</a>
                 <hr class="dropdown-divider">
-                <button class="dropdown-logout" (click)="onLogout()">
-                  🚪 Sign Out
-                </button>
+                <button class="dropdown-logout" (click)="onLogout()">🚪 Sign Out</button>
               </div>
             }
           </div>

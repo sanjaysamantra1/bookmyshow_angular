@@ -5,13 +5,20 @@ import { EventList } from './components/event-list/event-list';
 import { Login } from './components/login/login';
 import { Register } from './components/register/register';
 import { MovieDetail } from './components/movie-detail/movie-detail';
+import { SeatSelectionComponent } from './components/seat-selection/seat-selection';
+import { BookingConfirmation } from './components/booking-confirmation/booking-confirmation';
+import { MyBookings } from './components/my-bookings/my-bookings';
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   { path: '', component: Home },
   { path: 'movies', component: MovieList },
   { path: 'movies/:id', component: MovieDetail },
+  { path: 'movies/:id/book', component: SeatSelectionComponent, canActivate: [authGuard] },
   { path: 'events', component: EventList },
   { path: 'login', component: Login },
   { path: 'register', component: Register },
+  { path: 'bookings', component: MyBookings, canActivate: [authGuard] },
+  { path: 'booking-confirmation/:id', component: BookingConfirmation, canActivate: [authGuard] },
   { path: '**', redirectTo: '' }
 ];
