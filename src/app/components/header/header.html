@@ -1,27 +1,63 @@
-<nav class="navbar navbar-expand-lg bg-white border-bottom px-3">
-    <div class="container-fluid">
-        <!-- Left: Logo + Search -->
-        <div class="d-flex align-items-center gap-3 flex-grow-1">
-            <a class="navbar-brand" href="#">
-                <img src="images/bms-logo.png" alt="BookMyShow" height="35">
-            </a>
+<nav class="bms-header">
+  <div class="container-fluid px-3">
+    <div class="d-flex align-items-center gap-3">
 
-            <div class="input-group w-50 d-none d-md-flex">
-                <span class="input-group-text bg-light border-0">🔍</span>
-                <input type="text" class="form-control border-0 bg-light"
-                    placeholder="Search for Movies, Events, Plays, Sports and Activities">
-            </div>
-        </div>
+      <!-- Logo -->
+      <a class="header-logo flex-shrink-0" routerLink="/">
+        <img src="images/bms-logo.png" alt="BookMyShow" height="34">
+      </a>
 
-        <!-- Right: City, Sign in, Menu -->
-        <div class="d-flex align-items-center gap-3">
-            <span class="fw-medium d-none d-md-block">Pune <span class="ms-1">▾</span></span>
+      <!-- Search -->
+      <div class="header-search flex-grow-1 d-none d-md-flex">
+        <span class="search-icon">🔍</span>
+        <input type="text" class="search-input" placeholder="Search for Movies, Events, Plays, Sports and Activities">
+      </div>
 
-            <button class="btn btn-danger btn-sm px-3">Sign in</button>
+      <!-- Right controls -->
+      <div class="d-flex align-items-center gap-2 flex-shrink-0">
 
-            <button class="navbar-toggler border-0" type="button">
-                <span class="navbar-toggler-icon"></span>
+        <!-- City picker -->
+        <button class="city-btn d-none d-md-flex">
+          <span class="city-name">Bengaluru</span>
+          <span class="city-caret">▾</span>
+        </button>
+
+        @if (auth.isLoggedIn()) {
+          <!-- Logged-in user dropdown -->
+          <div class="user-menu-wrap">
+            <button class="user-btn" (click)="toggleDropdown()">
+              <span class="user-avatar">{{ auth.currentUser()?.name?.charAt(0)?.toUpperCase() }}</span>
+              <span class="user-name d-none d-md-inline">{{ auth.currentUser()?.name }}</span>
+              <span class="city-caret">▾</span>
             </button>
-        </div>
-    </div>    
+            @if (dropdownOpen) {
+              <div class="user-dropdown">
+                <div class="dropdown-user-info">
+                  <span class="dropdown-avatar">{{ auth.currentUser()?.name?.charAt(0)?.toUpperCase() }}</span>
+                  <div>
+                    <p class="dropdown-name">{{ auth.currentUser()?.name }}</p>
+                    <p class="dropdown-email">{{ auth.currentUser()?.email }}</p>
+                  </div>
+                </div>
+                <hr class="dropdown-divider">
+                <a routerLink="/bookings" class="dropdown-item-link" (click)="dropdownOpen=false">
+                  🎟️ My Bookings
+                </a>
+                <a routerLink="/" class="dropdown-item-link" (click)="dropdownOpen=false">
+                  ⚙️ Settings
+                </a>
+                <hr class="dropdown-divider">
+                <button class="dropdown-logout" (click)="onLogout()">
+                  🚪 Sign Out
+                </button>
+              </div>
+            }
+          </div>
+        } @else {
+          <a routerLink="/login" class="btn-signin">Sign in</a>
+        }
+
+      </div>
+    </div>
+  </div>
 </nav>

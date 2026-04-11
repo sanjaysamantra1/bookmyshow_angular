@@ -1,33 +1,45 @@
-
-/* BookMyShow Original Menu Styling */
-.bms-original-menu {
-  background-color: #f6f6f8;
-  font-size: 14px;
+.bms-navbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid #ebebeb;
+  font-size: 13px;
 }
 
-.bms-original-menu .nav-link {
-  color: #141313;
+.bms-nav-link {
+  display: block;
+  color: #333;
   padding: 10px 14px;
+  text-decoration: none;
   position: relative;
+  font-weight: 500;
+  transition: color 0.15s;
+  white-space: nowrap;
 }
 
-.bms-original-menu .nav-link:hover {
-  color: #060606;
+.bms-nav-link:hover { color: #f84464; }
+
+.bms-nav-active {
+  color: #f84464 !important;
+  font-weight: 700;
 }
 
-/* Active underline */
-.bms-original-menu .nav-link.active {
-  color: #191818;
+.bms-nav-active::after {
+  content: '';
+  position: absolute;
+  left: 14px; right: 14px;
+  bottom: 0;
+  height: 3px;
+  background-color: #f84464;
+  border-radius: 2px 2px 0 0;
+}
+
+.bms-nav-buzz {
+  color: #f84464;
   font-weight: 600;
 }
 
-.bms-original-menu .nav-link.active::after {
-  content: '';
-  position: absolute;
-  left: 14px;
-  right: 14px;
-  bottom: 4px;
-  height: 3px;
-  background-color: #f84464;
-  border-radius: 2px;
+.bms-nav-sm {
+  font-size: 12px;
+  color: #666;
+  padding: 10px 10px;
 }
+.bms-nav-sm:hover { color: #f84464; }

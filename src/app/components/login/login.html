@@ -1,0 +1,28 @@
+<div class="auth-page">
+  <div class="auth-card">
+    <div class="text-center">
+      <img src="images/bms-logo.png" alt="BookMyShow" class="auth-logo">
+      <h4 class="auth-title">Welcome back!</h4>
+      <p class="auth-sub">Sign in to access your bookings &amp; preferences</p>
+    </div>
+
+    @if (error) {
+      <div class="alert alert-danger py-2 small rounded-3 mb-3">{{ error }}</div>
+    }
+
+    <div class="mb-3">
+      <label class="form-label">Email address</label>
+      <input type="email" class="form-control" [(ngModel)]="email" placeholder="you@example.com">
+    </div>
+    <div class="mb-4">
+      <label class="form-label">Password</label>
+      <input type="password" class="form-control" [(ngModel)]="password" placeholder="••••••••">
+    </div>
+
+    <button class="btn-bms" (click)="onLogin()">Sign In</button>
+
+    <p class="auth-footer-text">
+      Don't have an account? <a routerLink="/register">Create one free</a>
+    </p>
+  </div>
+</div>

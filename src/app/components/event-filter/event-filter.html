@@ -1,0 +1,53 @@
+<div class="filter-panel">
+
+  <div class="filter-header d-flex justify-content-between align-items-center mb-3">
+    <span class="fw-bold">Filters</span>
+    @if (eventService.hasActiveFilters()) {
+      <button class="btn-clear" (click)="eventService.clearFilters()">Clear All</button>
+    }
+  </div>
+
+  <!-- City -->
+  <div class="filter-section mb-4">
+    <h6 class="filter-title">City</h6>
+    <div class="filter-options">
+      @for (city of eventService.allCities; track city) {
+        <label class="filter-chip" [class.selected]="isCitySelected(city)">
+          <input type="checkbox" [checked]="isCitySelected(city)" (change)="eventService.toggleCity(city)">
+          {{ city }}
+        </label>
+      }
+    </div>
+  </div>
+
+  <hr class="filter-divider">
+
+  <!-- Category -->
+  <div class="filter-section mb-4">
+    <h6 class="filter-title">Category</h6>
+    <div class="filter-options">
+      @for (cat of eventService.allCategories; track cat) {
+        <label class="filter-chip" [class.selected]="isCategorySelected(cat)">
+          <input type="checkbox" [checked]="isCategorySelected(cat)" (change)="eventService.toggleCategory(cat)">
+          {{ cat }}
+        </label>
+      }
+    </div>
+  </div>
+
+  <hr class="filter-divider">
+
+  <!-- Language -->
+  <div class="filter-section">
+    <h6 class="filter-title">Language</h6>
+    <div class="filter-options">
+      @for (lang of eventService.allLanguages; track lang) {
+        <label class="filter-chip" [class.selected]="isLanguageSelected(lang)">
+          <input type="checkbox" [checked]="isLanguageSelected(lang)" (change)="eventService.toggleLanguage(lang)">
+          {{ lang }}
+        </label>
+      }
+    </div>
+  </div>
+
+</div>

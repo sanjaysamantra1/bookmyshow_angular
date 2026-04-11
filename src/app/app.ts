@@ -1,24 +1,13 @@
-import { Navbar } from './components/navbar/navbar';
-import { Component, signal } from '@angular/core';
-import { Header } from './components/header/header';
-import { Body } from './components/body/body';
-import { Footer } from './components/footer/footer';
-import { Carousal } from './components/carousal/carousal';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Header } from './components/header/header';
+import { Navbar } from './components/navbar/navbar';
+import { Footer } from './components/footer/footer';
 
 @Component({
   selector: 'app-root',
-  imports: [
-    RouterOutlet,
-    Header,
-    Navbar,
-    Carousal,
-    Body,
-    Footer
-  ],
+  imports: [RouterOutlet, Header, Navbar, Footer],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
-  protected readonly title = signal('bookmyshow_angular');
-}
+export class App {}

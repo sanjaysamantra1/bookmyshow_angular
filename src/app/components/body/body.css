@@ -1,27 +1,144 @@
-
 .bms-body {
   background-color: #f5f5f5;
 }
 
-.movie-card img,
-.event-card img {
-  height: 280px;
-  object-fit: cover;
-}
-
-.movie-card h6,
-.event-card h6 {
-  font-size: 14px;
+/* ── Section header ── */
+.section-header { margin-bottom: 4px; }
+.section-sub { font-size: 12px; color: #888; }
+.see-all-link {
+  font-size: 13px;
+  color: #f84464;
+  text-decoration: none;
   font-weight: 600;
+  white-space: nowrap;
+}
+.see-all-link:hover { text-decoration: underline; }
+
+/* ── Cards ── */
+.bms-card {
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+.bms-card:hover {
+  box-shadow: 0 6px 24px rgba(0,0,0,0.13);
+  transform: translateY(-2px);
 }
 
-.movie-card small,
-.event-card small {
-  font-size: 12px;
+.card-poster-wrap {
+  position: relative;
+  overflow: hidden;
+}
+.card-poster {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+.event-img { height: 200px; }
+.bms-card:hover .card-poster { transform: scale(1.04); }
+
+/* Cert pill */
+.cert-pill {
+  position: absolute;
+  top: 8px; left: 8px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  font-size: 10px; font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.4px;
 }
 
-.movie-card:hover img,
-.event-card:hover img {
-  transform: scale(1.03);
-  transition: 0.3s ease;
+/* Event tag */
+.event-tag-pill {
+  position: absolute;
+  top: 8px; left: 8px;
+  font-size: 10px; font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
 }
+.pill-hot { background: #f84464; color: #fff; }
+.pill-new { background: #28a745; color: #fff; }
+
+/* Hover bar */
+.card-hover-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(transparent, rgba(0,0,0,0.72));
+  padding: 28px 10px 10px;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  text-align: center;
+}
+.bms-card:hover .card-hover-bar { opacity: 1; }
+.hover-book-btn {
+  display: inline-block;
+  background: #f84464;
+  color: #fff;
+  font-size: 12px; font-weight: 600;
+  padding: 5px 18px;
+  border-radius: 4px;
+  width: 100%;
+}
+
+/* Card meta */
+.card-meta { padding: 10px 10px 12px; }
+
+.rating-row {
+  display: flex; align-items: center; gap: 3px;
+  margin-bottom: 4px;
+}
+.star-icon { color: #f5a623; font-size: 13px; }
+.rating-num { font-size: 12px; font-weight: 700; color: #1a1a1a; }
+.votes-txt { font-size: 11px; color: #999; }
+
+.card-title {
+  font-size: 13px; font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 3px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.card-genre {
+  font-size: 11px; color: #777;
+  margin: 0 0 4px;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.event-price {
+  font-size: 12px; font-weight: 700; color: #1a1a1a;
+  margin: 2px 0 0;
+}
+
+.lang-pills { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 4px; }
+.lang-pill {
+  font-size: 10px; color: #555;
+  background: #f0f0f0;
+  border-radius: 4px;
+  padding: 2px 6px;
+}
+
+/* ── Premiere banner ── */
+.premiere-banner {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  color: #fff;
+}
+.premiere-label { font-size: 12px; color: #aaa; letter-spacing: 0.5px; }
+.premiere-title { font-size: 18px; font-weight: 700; }
+
+/* ── CTA row ── */
+.plays-cta-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px 20px;
+  min-width: 260px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+}
+.plays-emoji { font-size: 28px; }
+.plays-cta-title { font-size: 14px; font-weight: 700; margin: 0; color: #1a1a1a; }
+.plays-cta-sub { font-size: 12px; color: #888; margin: 2px 0 0; }

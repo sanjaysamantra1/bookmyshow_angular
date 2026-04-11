@@ -1,1 +1,47 @@
-<p>movie-filter works!</p>
+<div class="filter-panel">
+
+  <!-- Header -->
+  <div class="filter-header d-flex justify-content-between align-items-center mb-3">
+    <span class="fw-bold">Filters</span>
+    @if (movieService.hasActiveFilters()) {
+      <button class="btn-clear" (click)="movieService.clearFilters()">Clear All</button>
+    }
+  </div>
+
+  <!-- Language -->
+  <div class="filter-section mb-4">
+    <h6 class="filter-title">Language</h6>
+    <div class="filter-options">
+      @for (lang of movieService.allLanguages; track lang) {
+        <label class="filter-chip" [class.selected]="isLanguageSelected(lang)">
+          <input
+            type="checkbox"
+            [checked]="isLanguageSelected(lang)"
+            (change)="movieService.toggleLanguage(lang)"
+          >
+          {{ lang }}
+        </label>
+      }
+    </div>
+  </div>
+
+  <hr class="filter-divider">
+
+  <!-- Genre -->
+  <div class="filter-section">
+    <h6 class="filter-title">Genre</h6>
+    <div class="filter-options">
+      @for (genre of movieService.allGenres; track genre) {
+        <label class="filter-chip" [class.selected]="isGenreSelected(genre)">
+          <input
+            type="checkbox"
+            [checked]="isGenreSelected(genre)"
+            (change)="movieService.toggleGenre(genre)"
+          >
+          {{ genre }}
+        </label>
+      }
+    </div>
+  </div>
+
+</div>

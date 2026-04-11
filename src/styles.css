@@ -1,2 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
 @import 'bootstrap/dist/css/bootstrap.css';
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  background-color: #f5f5f5;
+  color: #1a1a1a;
+  scroll-behavior: smooth;
+}
+
+/* Remove blue outline on all clicks, keep keyboard focus */
+:focus:not(:focus-visible) { outline: none; }
+a { color: inherit; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f1f1; }
+::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #aaa; }

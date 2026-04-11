@@ -1,26 +1,22 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { MovieService } from '../../services/movie-service';
+import { EventService } from '../../services/event-service';
 
 @Component({
   selector: 'app-body',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './body.html',
   styleUrl: './body.css',
 })
 export class Body {
-   movies = [
-    { title: 'Jawan', genre: 'Action / Thriller', poster: 'images/Movies-1.png' },
-    { title: 'Salaar', genre: 'Action / Drama', poster: 'images/Movies-2.png' },
-    { title: 'Leo', genre: 'Action', poster: 'images/Movies-3.png' },
-    { title: 'Dunki', genre: 'Comedy / Drama', poster: 'images/Movies-4.png' },
-    { title: 'Animal', genre: 'Crime / Action', poster: 'images/Movies-5.png' },
-    { title: 'Fighter', genre: 'Action / Thriller', poster: 'images/Movies-2.png' }
-  ];
+  constructor(public movieService: MovieService, public eventService: EventService) {}
 
-  events = [
-    { name: 'Arijit Singh Live', location: 'Mumbai', banner: 'images/Events-1.png' },
-    { name: 'Standup Comedy Night', location: 'Pune', banner: 'images/Events-2.png' },
-    { name: 'Music Festival', location: 'Bengaluru', banner: 'images/Events-3.png' },
-    { name: 'Drama Play', location: 'Delhi', banner: 'images/Events-4.png' },
-    { name: 'Drama Play', location: 'Delhi', banner: 'images/Events-5.png' }
-  ];
+  get featuredMovies() {
+    return this.movieService.allMovies.slice(0, 6);
+  }
+
+  get featuredEvents() {
+    return this.eventService.allEvents.slice(0, 6);
+  }
 }

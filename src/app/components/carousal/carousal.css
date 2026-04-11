@@ -1,17 +1,21 @@
-
-/* BookMyShow Carousel Styling */
 .bms-carousel {
-  margin-top: 10px;
+  background: #1a1a2e;
 }
 
-.bms-carousel img {
-  height: 320px;
+.carousel-img {
+  height: 360px;
   object-fit: cover;
-  border-radius: 6px;
+  object-position: center top;
 }
 
 @media (max-width: 768px) {
-  .bms-carousel img {
-    height: 180px;
-  }
+  .carousel-img { height: 190px; }
 }
+
+.carousel-indicators [data-bs-target] {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  border: none;
+  opacity: 0.5;
+}
+.carousel-indicators .active { opacity: 1; background-color: #f84464; }

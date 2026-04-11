@@ -1,28 +1,37 @@
-<!-- ORIGINAL BookMyShow Menu Bar (Bootstrap 5) -->
-<nav class="bms-original-menu">
-  <div class="container-fluid">
+<nav class="bms-navbar">
+  <div class="container-fluid px-3">
     <div class="d-flex justify-content-between align-items-center">
-
       <!-- Left Menu -->
-      <ul class="nav">
-        <li class="nav-item"><a class="nav-link active" routerLink="movies">Movies</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Stream</a></li>
-        <li class="nav-item"><a class="nav-link" routerLink="events">Events</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Plays</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Sports</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Activities</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Buzz</a></li>
+      <ul class="nav bms-nav-left">
+        <li class="nav-item">
+          <a class="bms-nav-link" routerLink="/movies" routerLinkActive="bms-nav-active" [routerLinkActiveOptions]="{exact:false}">Movies</a>
+        </li>
+        <li class="nav-item">
+          <a class="bms-nav-link" href="#">Stream</a>
+        </li>
+        <li class="nav-item">
+          <a class="bms-nav-link" routerLink="/events" routerLinkActive="bms-nav-active" [routerLinkActiveOptions]="{exact:false}">Events</a>
+        </li>
+        <li class="nav-item">
+          <a class="bms-nav-link" href="#">Plays</a>
+        </li>
+        <li class="nav-item">
+          <a class="bms-nav-link" href="#">Sports</a>
+        </li>
+        <li class="nav-item">
+          <a class="bms-nav-link" href="#">Activities</a>
+        </li>
+        <li class="nav-item">
+          <a class="bms-nav-link bms-nav-buzz" href="#">Buzz</a>
+        </li>
       </ul>
-
       <!-- Right Menu -->
-      <ul class="nav">
-        <li class="nav-item"><a class="nav-link" href="#">ListYourShow</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Corporates</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Offers</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Gift Cards</a></li>
+      <ul class="nav bms-nav-right d-none d-lg-flex">
+        <li class="nav-item"><a class="bms-nav-link bms-nav-sm" href="#">List Your Show</a></li>
+        <li class="nav-item"><a class="bms-nav-link bms-nav-sm" href="#">Corporates</a></li>
+        <li class="nav-item"><a class="bms-nav-link bms-nav-sm" href="#">Offers</a></li>
+        <li class="nav-item"><a class="bms-nav-link bms-nav-sm" href="#">Gift Cards</a></li>
       </ul>
-
     </div>
   </div>
 </nav>
-

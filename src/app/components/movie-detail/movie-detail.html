@@ -1,0 +1,129 @@
+@if (movie) {
+  <!-- Hero section -->
+  <div class="detail-hero">
+    <div class="hero-backdrop">
+      <img [src]="movie.poster" class="hero-bg-img" alt="">
+    </div>
+    <div class="hero-overlay">
+      <div class="container">
+        <div class="hero-content d-flex gap-4 align-items-end">
+          <img [src]="movie.poster" [alt]="movie.title" class="hero-poster">
+          <div class="hero-info">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <span class="cert-badge-lg">{{ movie.certification }}</span>
+              <span class="hero-rating">★ {{ movie.rating }}/10</span>
+              <span class="hero-votes">{{ movie.votes }} votes</span>
+            </div>
+            <h2 class="hero-title">{{ movie.title }}</h2>
+            <div class="hero-meta mb-2">
+              @for (genre of movie.genre; track genre) {
+                <span class="hero-genre-chip">{{ genre }}</span>
+              }
+            </div>
+            @if (extras) {
+              <p class="hero-duration">⏱ {{ extras.duration }} · {{ movie.language.join(', ') }}</p>
+              <p class="hero-director">Directed by <strong>{{ extras.director }}</strong></p>
+            }
+            <div class="hero-actions mt-3 d-flex gap-3 flex-wrap">
+              <a routerLink="/movies" class="btn-book-now">🎟 Book Tickets</a>
+              <button class="btn-wishlist">♡ Wishlist</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Detail body -->
+  <div class="container py-4">
+    <div class="row g-4">
+
+      <!-- Left: About + Cast -->
+      <div class="col-lg-8">
+        <div class="detail-card mb-4">
+          <h6 class="detail-section-title">About the movie</h6>
+          @if (extras) {
+            <p class="detail-desc">{{ extras.description }}</p>
+          } @else {
+            <p class="text-muted">No description available.</p>
+          }
+        </div>
+
+        @if (extras && extras.cast.length) {
+          <div class="detail-card mb-4">
+            <h6 class="detail-section-title">Cast</h6>
+            <div class="cast-row">
+              @for (actor of extras.cast; track actor) {
+                <div class="cast-chip">
+                  <div class="cast-avatar">{{ actor.charAt(0) }}</div>
+                  <span class="cast-name">{{ actor }}</span>
+                </div>
+              }
+            </div>
+          </div>
+        }
+
+        <!-- Related movies -->
+        @if (relatedMovies.length) {
+          <div class="detail-card">
+            <h6 class="detail-section-title">You may also like</h6>
+            <div class="d-flex gap-3 flex-wrap">
+              @for (m of relatedMovies; track m.id) {
+                <a [routerLink]="['/movies', m.id]" class="related-card text-decoration-none">
+                  <img [src]="m.poster" [alt]="m.title" class="related-poster">
+                  <p class="related-title">{{ m.title }}</p>
+                  <p class="related-rating">★ {{ m.rating }}</p>
+                </a>
+              }
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Right: Info sidebar -->
+      <div class="col-lg-4">
+        <div class="detail-card mb-3">
+          <h6 class="detail-section-title">Movie info</h6>
+          <table class="info-table">
+            <tr>
+              <td class="info-label">Genre</td>
+              <td class="info-value">{{ movie.genre.join(', ') }}</td>
+            </tr>
+            @if (extras) {
+              <tr>
+                <td class="info-label">Duration</td>
+                <td class="info-value">{{ extras.duration }}</td>
+              </tr>
+              <tr>
+                <td class="info-label">Director</td>
+                <td class="info-value">{{ extras.director }}</td>
+              </tr>
+            }
+            <tr>
+              <td class="info-label">Language</td>
+              <td class="info-value">{{ movie.language.join(', ') }}</td>
+            </tr>
+            <tr>
+              <td class="info-label">Certificate</td>
+              <td class="info-value"><span class="cert-badge-sm">{{ movie.certification }}</span></td>
+            </tr>
+            <tr>
+              <td class="info-label">Rating</td>
+              <td class="info-value"><span class="star-yellow">★</span> {{ movie.rating }}/10 ({{ movie.votes }})</td>
+            </tr>
+          </table>
+        </div>
+
+        <a routerLink="/movies" class="btn-book-now d-block text-center mb-3">🎟 Book Tickets</a>
+        <a routerLink="/movies" class="btn-back">← Back to Movies</a>
+      </div>
+
+    </div>
+  </div>
+
+} @else {
+  <div class="container py-5 text-center">
+    <p class="text-muted">Movie not found.</p>
+    <a routerLink="/movies" class="btn-back">← Back to Movies</a>
+  </div>
+}

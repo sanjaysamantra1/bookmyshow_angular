@@ -27,9 +27,7 @@
   padding: 0;
 }
 
-.btn-clear:hover {
-  text-decoration: underline;
-}
+.btn-clear:hover { text-decoration: underline; }
 
 .filter-title {
   font-size: 13px;
@@ -59,9 +57,7 @@
   user-select: none;
 }
 
-.filter-chip input[type="checkbox"] {
-  display: none;
-}
+.filter-chip input[type="checkbox"] { display: none; }
 
 .filter-chip:hover {
   border-color: #f84464;

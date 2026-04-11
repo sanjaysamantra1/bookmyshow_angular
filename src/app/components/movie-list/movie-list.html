@@ -1,10 +1,61 @@
-<div class="container">
-  <div class="row">
-    <div class="col-sm-3">
-      <app-movie-filter></app-movie-filter>
+<div class="movie-list-page py-4">
+  <div class="container-fluid px-4">
+
+    <div class="d-flex align-items-baseline gap-2 mb-4">
+      <h5 class="fw-bold mb-0">Movies in Bengaluru</h5>
+      <span class="result-count text-muted">
+        {{ movieService.filteredMovies().length }} results
+        @if (movieService.hasActiveFilters()) {
+          <span class="text-danger">&nbsp;(filtered)</span>
+        }
+      </span>
     </div>
-    <div class="col-sm-9">
-      
+
+    <div class="row g-0">
+      <!-- Sidebar Filter -->
+      <div class="col-12 col-md-3 col-lg-2 mb-4 mb-md-0 pe-md-3">
+        <app-movie-filter></app-movie-filter>
+      </div>
+
+      <!-- Grid -->
+      <div class="col-12 col-md-9 col-lg-10">
+        @if (movieService.filteredMovies().length === 0) {
+          <div class="no-results text-center py-5">
+            <div class="mb-3" style="font-size:48px">🎬</div>
+            <h6 class="fw-bold text-muted">No movies match your filters</h6>
+            <p class="text-muted small mb-3">Try removing some filters</p>
+            <button class="btn btn-outline-danger btn-sm" (click)="movieService.clearFilters()">Clear All Filters</button>
+          </div>
+        } @else {
+          <div class="row g-3">
+            @for (movie of movieService.filteredMovies(); track movie.id) {
+              <div class="col-6 col-sm-4 col-md-4 col-lg-3 col-xl-2">
+                <a [routerLink]="['/movies', movie.id]" class="text-decoration-none">
+                  <div class="movie-card">
+                    <div class="poster-wrapper">
+                      <img [src]="movie.poster" [alt]="movie.title" class="poster-img">
+                      <span class="cert-badge">{{ movie.certification }}</span>
+                      <div class="hover-overlay">
+                        <button class="btn-book">Book Tickets</button>
+                      </div>
+                    </div>
+                    <div class="movie-info">
+                      <div class="rating-row">
+                        <span class="star">★</span>
+                        <span class="rating-val">{{ movie.rating }}/10</span>
+                        <span class="votes text-muted">· {{ movie.votes }}</span>
+                      </div>
+                      <h6 class="movie-title">{{ movie.title }}</h6>
+                      <p class="movie-meta">{{ movie.genre.join(' / ') }}</p>
+                      <p class="movie-lang">{{ movie.language.join(', ') }}</p>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            }
+          </div>
+        }
+      </div>
     </div>
   </div>
 </div>

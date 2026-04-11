@@ -1,45 +1,125 @@
+<div class="bms-body py-4">
 
-<!-- body.component.html -->
-<div class="container-fluid bms-body py-4">
-
-  <!-- Recommended Movies -->
+  <!-- ── Recommended Movies ── -->
   <div class="container mb-5">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-      <h5 class="fw-bold">Recommended Movies</h5>
-      <a class="text-danger text-decoration-none">See All ›</a>
+    <div class="section-header d-flex justify-content-between align-items-center mb-3">
+      <div>
+        <h5 class="fw-bold mb-0">Recommended Movies</h5>
+        <span class="section-sub">Based on your city · Bengaluru</span>
+      </div>
+      <a routerLink="/movies" class="see-all-link">See All ›</a>
     </div>
 
     <div class="row g-3">
-      @for (movie of movies; track movie.title) {
+      @for (movie of featuredMovies; track movie.id) {
         <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-          <div class="card border-0 movie-card">
-            <img [src]="movie.poster" class="card-img-top rounded" />
-            <div class="card-body px-0">
-              <h6 class="mb-1">{{ movie.title }}</h6>
-              <small class="text-muted">{{ movie.genre }}</small>
+          <a [routerLink]="['/movies', movie.id]" class="text-decoration-none">
+            <div class="bms-card">
+              <div class="card-poster-wrap">
+                <img [src]="movie.poster" [alt]="movie.title" class="card-poster">
+                <span class="cert-pill">{{ movie.certification }}</span>
+                <div class="card-hover-bar">
+                  <span class="hover-book-btn">Book Tickets</span>
+                </div>
+              </div>
+              <div class="card-meta">
+                <div class="rating-row">
+                  <span class="star-icon">★</span>
+                  <span class="rating-num">{{ movie.rating }}/10</span>
+                  <span class="votes-txt">· {{ movie.votes }}</span>
+                </div>
+                <p class="card-title">{{ movie.title }}</p>
+                <p class="card-genre">{{ movie.genre.join(' / ') }}</p>
+                <div class="lang-pills">
+                  @for (lang of movie.language.slice(0,2); track lang) {
+                    <span class="lang-pill">{{ lang }}</span>
+                  }
+                </div>
+              </div>
             </div>
-          </div>
+          </a>
         </div>
       }
     </div>
   </div>
 
-  <!-- Live Events -->
+  <!-- ── Premieres / Trending banner ── -->
   <div class="container mb-5">
-    <h5 class="fw-bold mb-3">The Best Of Live Events</h5>
+    <div class="premiere-banner d-flex align-items-center justify-content-between px-4 py-3 rounded">
+      <div>
+        <p class="premiere-label mb-1">🎬 BookMyShow Stream</p>
+        <h5 class="premiere-title mb-0">Watch the latest premieres at home</h5>
+      </div>
+      <a href="#" class="btn btn-light btn-sm fw-semibold px-3">Explore Now</a>
+    </div>
+  </div>
+
+  <!-- ── Live Events ── -->
+  <div class="container mb-5">
+    <div class="section-header d-flex justify-content-between align-items-center mb-3">
+      <div>
+        <h5 class="fw-bold mb-0">The Best Of Live Events</h5>
+        <span class="section-sub">Concerts, Comedy, Sports & more</span>
+      </div>
+      <a routerLink="/events" class="see-all-link">See All ›</a>
+    </div>
 
     <div class="row g-3">
-      @for (event of events; track event.name) {
+      @for (event of featuredEvents; track event.id) {
         <div class="col-6 col-sm-4 col-md-3 col-lg-2">
-          <div class="card border-0 event-card">
-            <img [src]="event.banner" class="card-img-top rounded" />
-            <div class="card-body px-0">
-              <h6 class="mb-1">{{ event.name }}</h6>
-              <small class="text-muted">{{ event.location }}</small>
+          <a routerLink="/events" class="text-decoration-none">
+            <div class="bms-card">
+              <div class="card-poster-wrap">
+                <img [src]="event.banner" [alt]="event.name" class="card-poster event-img">
+                @if (event.tag) {
+                  <span class="event-tag-pill" [class.pill-hot]="event.tag === 'Selling Fast'" [class.pill-new]="event.tag === 'New'">
+                    {{ event.tag }}
+                  </span>
+                }
+                <div class="card-hover-bar">
+                  <span class="hover-book-btn">Book Now</span>
+                </div>
+              </div>
+              <div class="card-meta">
+                <p class="card-title">{{ event.name }}</p>
+                <p class="card-genre">📍 {{ event.city }} · {{ event.venue }}</p>
+                <p class="card-genre">📅 {{ event.date }}</p>
+                <p class="event-price">{{ event.price }}</p>
+              </div>
             </div>
-          </div>
+          </a>
         </div>
       }
+    </div>
+  </div>
+
+  <!-- ── Plays section ── -->
+  <div class="container mb-4">
+    <div class="plays-cta-row d-flex gap-3 flex-wrap">
+      <div class="plays-cta-card flex-fill">
+        <span class="plays-emoji">🎭</span>
+        <div>
+          <p class="plays-cta-title">Plays & Theatre</p>
+          <p class="plays-cta-sub">Drama, Comedy, musicals and more</p>
+        </div>
+        <a href="#" class="btn btn-sm btn-outline-danger ms-auto">Explore</a>
+      </div>
+      <div class="plays-cta-card flex-fill">
+        <span class="plays-emoji">🏏</span>
+        <div>
+          <p class="plays-cta-title">Sports</p>
+          <p class="plays-cta-sub">IPL, Kabaddi, Football & more</p>
+        </div>
+        <a href="#" class="btn btn-sm btn-outline-danger ms-auto">Explore</a>
+      </div>
+      <div class="plays-cta-card flex-fill">
+        <span class="plays-emoji">🎵</span>
+        <div>
+          <p class="plays-cta-title">Music & Festivals</p>
+          <p class="plays-cta-sub">Concerts, DJ nights, tours</p>
+        </div>
+        <a href="#" class="btn btn-sm btn-outline-danger ms-auto">Explore</a>
+      </div>
     </div>
   </div>
 
