@@ -1,0 +1,88 @@
+<div class="activities-page">
+
+  <!-- Header -->
+  <div class="activities-header">
+    <div class="container py-4">
+      <div class="d-flex align-items-center gap-3 mb-3">
+        <span style="font-size:44px">🎯</span>
+        <div>
+          <h2 class="act-title mb-0">Activities</h2>
+          <p class="act-sub mb-0">Workshops, Adventures, Wellness, Gaming & more</p>
+        </div>
+      </div>
+      <div class="category-badges d-flex gap-2 flex-wrap">
+        @for (cat of categories.slice(1,6); track cat) {
+          <span class="cat-badge-hero">{{ getIcon(cat) }} {{ cat }}</span>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-4">
+
+    <!-- Filters -->
+    <div class="filters-row d-flex gap-4 flex-wrap align-items-start mb-4">
+      <div class="filter-group">
+        <span class="filter-label">Category</span>
+        <div class="chip-row">
+          @for (cat of categories; track cat) {
+            <button class="chip" [class.chip-active]="activeCategory() === cat" (click)="activeCategory.set(cat)">
+              {{ getIcon(cat) }} {{ cat }}
+            </button>
+          }
+        </div>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">City</span>
+        <div class="chip-row">
+          <button class="chip" [class.chip-active]="activeCity() === 'All'" (click)="activeCity.set('All')">All</button>
+          @for (city of cities; track city) {
+            <button class="chip" [class.chip-active]="activeCity() === city" (click)="activeCity.set(city)">{{ city }}</button>
+          }
+        </div>
+      </div>
+    </div>
+
+    <p class="result-label mb-3">{{ filtered().length }} activities found</p>
+
+    @if (filtered().length === 0) {
+      <div class="empty-state text-center py-5">
+        <div style="font-size:48px">🎯</div>
+        <h6 class="mt-3 text-muted">No activities found for selected filters</h6>
+      </div>
+    } @else {
+      <div class="activities-grid">
+        @for (act of filtered(); track act.id) {
+          <div class="act-card">
+            <div class="act-img-wrap">
+              <img [src]="act.poster" [alt]="act.title" class="act-img">
+              <span class="act-category-icon">{{ getIcon(act.category) }}</span>
+              @if (act.tag) { <span class="act-tag">{{ act.tag }}</span> }
+              <div class="act-hover"><button class="btn-act-book">Book Now</button></div>
+            </div>
+            <div class="act-info">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <span class="act-category-pill">{{ act.category }}</span>
+                <span class="act-age">{{ act.ageGroup }}</span>
+              </div>
+              <h6 class="act-name">{{ act.title }}</h6>
+              <p class="act-meta">📍 {{ act.venue }}, {{ act.city }}</p>
+              <p class="act-meta">📅 {{ act.date }} · ⏱ {{ act.duration }}</p>
+              <p class="act-desc">{{ act.description }}</p>
+              <div class="includes-row">
+                @for (inc of act.includes; track inc) {
+                  <span class="include-chip">✓ {{ inc }}</span>
+                }
+              </div>
+              <div class="act-footer">
+                <span class="act-price">{{ act.price }}</span>
+                <button class="btn-act-book-sm">Book Now</button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+  </div>
+</div>

@@ -1,0 +1,86 @@
+<div class="sports-page">
+
+  <!-- Header -->
+  <div class="sports-header">
+    <div class="container py-4">
+      <div class="d-flex align-items-center gap-3 mb-3">
+        <span style="font-size:44px">🏆</span>
+        <div>
+          <h2 class="sports-title mb-0">Sports</h2>
+          <p class="sports-sub mb-0">Cricket, Football, Kabaddi, Tennis & more live events</p>
+        </div>
+      </div>
+      <!-- League badges -->
+      <div class="d-flex gap-2 flex-wrap">
+        <span class="league-badge">🏏 IPL 2026</span>
+        <span class="league-badge">⚽ ISL</span>
+        <span class="league-badge">🤼 PKL</span>
+        <span class="league-badge">🏸 Nationals</span>
+        <span class="league-badge">🏎️ F1 Fanzone</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-4">
+
+    <!-- Filters -->
+    <div class="filters-row d-flex gap-4 flex-wrap align-items-center mb-4">
+      <div class="filter-group">
+        <span class="filter-label">Sport</span>
+        <div class="chip-row">
+          @for (sport of sports; track sport) {
+            <button class="chip" [class.chip-active]="activeSport() === sport" (click)="activeSport.set(sport)">
+              {{ getIcon(sport) }} {{ sport }}
+            </button>
+          }
+        </div>
+      </div>
+      <div class="filter-group">
+        <span class="filter-label">City</span>
+        <div class="chip-row">
+          <button class="chip" [class.chip-active]="activeCity() === 'All'" (click)="activeCity.set('All')">All</button>
+          @for (city of cities; track city) {
+            <button class="chip" [class.chip-active]="activeCity() === city" (click)="activeCity.set(city)">{{ city }}</button>
+          }
+        </div>
+      </div>
+    </div>
+
+    <p class="result-label mb-3">{{ filtered().length }} events found</p>
+
+    @if (filtered().length === 0) {
+      <div class="empty-state text-center py-5">
+        <div style="font-size:48px">🏆</div>
+        <h6 class="mt-3 text-muted">No events found for selected filters</h6>
+      </div>
+    } @else {
+      <div class="sports-grid">
+        @for (event of filtered(); track event.id) {
+          <div class="sport-card">
+            <div class="sport-img-wrap">
+              <img [src]="event.poster" [alt]="event.title" class="sport-img">
+              <span class="sport-icon-badge">{{ getIcon(event.sport) }}</span>
+              @if (event.tag) {
+                <span class="sport-tag" [class.tag-hot]="event.tag === 'Selling Fast' || event.tag === 'Hot' || event.tag === 'Grand Final'">{{ event.tag }}</span>
+              }
+              <div class="sport-hover"><button class="btn-book-sport">Book Tickets</button></div>
+            </div>
+            <div class="sport-info">
+              <div class="league-pill">{{ event.league }}</div>
+              <h6 class="sport-title">{{ event.title }}</h6>
+              @if (event.teams) { <p class="teams-text">{{ event.teams }}</p> }
+              <p class="sport-meta">📍 {{ event.venue }}, {{ event.city }}</p>
+              <p class="sport-meta">📅 {{ event.date }} · 🕐 {{ event.time }}</p>
+              <p class="sport-desc">{{ event.description }}</p>
+              <div class="sport-footer">
+                <span class="sport-price">{{ event.price }}</span>
+                <button class="btn-sport-book">Book Now</button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+  </div>
+</div>

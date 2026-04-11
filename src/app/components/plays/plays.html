@@ -1,0 +1,87 @@
+<div class="plays-page">
+
+  <!-- Page header -->
+  <div class="plays-header">
+    <div class="container py-4">
+      <div class="d-flex align-items-center gap-3 mb-2">
+        <span class="plays-icon">🎭</span>
+        <div>
+          <h2 class="plays-title mb-0">Plays & Theatre</h2>
+          <p class="plays-sub mb-0">Drama, Musicals, Comedy, Classical & more</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container py-4">
+
+    <!-- Filters row -->
+    <div class="filters-row d-flex gap-4 flex-wrap align-items-center mb-4">
+      <!-- Type filter -->
+      <div class="filter-group">
+        <span class="filter-label">Type</span>
+        <div class="chip-row">
+          @for (type of types; track type) {
+            <button class="chip" [class.chip-active]="activeType() === type" (click)="activeType.set(type)">
+              {{ type }}
+            </button>
+          }
+        </div>
+      </div>
+
+      <!-- City filter -->
+      <div class="filter-group">
+        <span class="filter-label">City</span>
+        <div class="chip-row">
+          <button class="chip" [class.chip-active]="activeCity() === 'All'" (click)="activeCity.set('All')">All</button>
+          @for (city of cities; track city) {
+            <button class="chip" [class.chip-active]="activeCity() === city" (click)="activeCity.set(city)">{{ city }}</button>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Result count -->
+    <p class="result-label mb-3">{{ filtered().length }} shows found</p>
+
+    <!-- Plays list -->
+    @if (filtered().length === 0) {
+      <div class="empty-state text-center py-5">
+        <div style="font-size:48px">🎭</div>
+        <h6 class="mt-3 text-muted">No shows found for selected filters</h6>
+      </div>
+    } @else {
+      <div class="plays-grid">
+        @for (play of filtered(); track play.id) {
+          <div class="play-card">
+            <div class="play-img-wrap">
+              <img [src]="play.poster" [alt]="play.title" class="play-img">
+              @if (play.tag) { <span class="play-tag" [class.tag-hot]="play.tag==='Selling Fast'">{{ play.tag }}</span> }
+              <div class="play-hover">
+                <button class="btn-book-play">Book Tickets</button>
+              </div>
+            </div>
+            <div class="play-info">
+              <div class="d-flex align-items-center justify-content-between mb-1">
+                <span class="play-type-badge">{{ play.type }}</span>
+                <span class="play-lang">{{ play.language.join(' / ') }}</span>
+              </div>
+              <h6 class="play-name">{{ play.title }}</h6>
+              <p class="play-meta">📍 {{ play.venue }}</p>
+              <p class="play-meta">📅 {{ play.date }} · ⏱ {{ play.duration }}</p>
+              <p class="play-desc">{{ play.description }}</p>
+              <div class="cast-line">
+                <span class="cast-label">Cast:</span> {{ play.cast.join(', ') }}
+              </div>
+              <div class="play-footer d-flex align-items-center justify-content-between mt-2">
+                <span class="play-price">{{ play.price }}</span>
+                <button class="btn-book-play-sm">Book Now</button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+  </div>
+</div>

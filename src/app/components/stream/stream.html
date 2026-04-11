@@ -1,0 +1,78 @@
+<div class="stream-page">
+
+  <!-- Hero banner -->
+  <div class="stream-hero">
+    <div class="hero-overlay-gradient"></div>
+    <div class="stream-hero-content container">
+      <div class="stream-logo-badge">▶ BookMyShow Stream</div>
+      <h1 class="stream-headline">Watch Anywhere.<br>Anytime. Only Here.</h1>
+      <p class="stream-sub">Exclusive web series, award-winning films & originals — all in one place.</p>
+      <div class="d-flex gap-3 flex-wrap">
+        <button class="btn-stream-primary">▶ Start Watching Free</button>
+        <button class="btn-stream-outline">Browse All Titles</button>
+      </div>
+    </div>
+    <!-- Featured titles on hero -->
+    <div class="hero-featured container">
+      @for (t of featured; track t.id) {
+        <div class="hero-card">
+          <img [src]="t.poster" [alt]="t.title" class="hero-card-img">
+          @if (t.tag) { <span class="hero-card-tag">{{ t.tag }}</span> }
+        </div>
+      }
+    </div>
+  </div>
+
+  <div class="container py-5">
+
+    <!-- Filter chips -->
+    <div class="filter-row mb-4">
+      @for (cat of categories; track cat) {
+        <button class="filter-chip" [class.active]="activeFilter() === cat" (click)="setFilter(cat)">
+          {{ cat }}
+        </button>
+      }
+    </div>
+
+    <!-- Titles grid -->
+    <div class="titles-grid">
+      @for (title of filtered(); track title.id) {
+        <div class="title-card">
+          <div class="title-img-wrap">
+            <img [src]="title.poster" [alt]="title.title" class="title-img">
+            <div class="title-overlay">
+              <button class="btn-play-now">▶ Watch Now</button>
+            </div>
+            @if (title.tag) { <span class="title-tag">{{ title.tag }}</span> }
+            <span class="title-type-badge">{{ title.type }}</span>
+          </div>
+          <div class="title-meta">
+            <div class="d-flex align-items-center justify-content-between mb-1">
+              <span class="title-rating">★ {{ title.rating }}</span>
+              <span class="title-lang">{{ title.language }}</span>
+            </div>
+            <p class="title-name">{{ title.title }}</p>
+            <p class="title-genre">{{ title.genre.join(' · ') }}</p>
+            @if (title.seasons) {
+              <p class="title-seasons">{{ title.seasons }} Season{{ title.seasons > 1 ? 's' : '' }}</p>
+            }
+            @if (title.duration) {
+              <p class="title-seasons">{{ title.duration }}</p>
+            }
+          </div>
+        </div>
+      }
+    </div>
+
+    <!-- BMS Exclusive banner -->
+    <div class="exclusive-banner mt-5 d-flex align-items-center justify-content-between flex-wrap gap-3">
+      <div>
+        <p class="exclusive-eyebrow">🌟 BMS Originals</p>
+        <h4 class="exclusive-title">Watch stories only on BookMyShow Stream</h4>
+        <p class="exclusive-sub">Exclusive originals you won't find anywhere else</p>
+      </div>
+      <button class="btn-stream-primary">Explore Originals</button>
+    </div>
+
+  </div>
+</div>
