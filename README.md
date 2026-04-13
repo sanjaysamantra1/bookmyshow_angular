@@ -1,59 +1,197 @@
-# BookmyshowAngular
+# Angular Assignment: BookMyShow-like Web Application
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.5.
+## 1. REQUIREMENT DOCUMENT
 
-## Development server
+### 1.1 Problem Statement
+Design and build a BookMyShow-like web application that allows users to browse events (movies, shows, plays), view details, select seats, and book tickets online. The application is intended for learning, assessment, and portfolio demonstration purposes, focusing on real-world Angular architecture and best practices.
 
-To start a local development server, run:
+The goal is **not** to replicate BookMyShow fully, but to implement a **simplified yet realistic ticket booking platform**.
 
-```bash
-ng serve
-```
+---
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### 1.2 Target Users
+- **End Users (Customers)**: Users who browse events and book ticketspractices
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 1.3 Assumptions and Constraints
+**Assumptions**
+- Backend APIs are mocked or simulated (JSON server / static APIs)
+- Payment gateway is simulated (no real transactions)
+- Authentication uses dummy credentials or mock JWT
+- Single-country and single-currency support
 
-```bash
-ng generate component component-name
-```
+**Constraints**
+-Use Bootstrap
+- Angular 20+ must be used
+-use standalone comopnent
+-dont use ngmodule
+- RxJS must be used for async data handling
+- Lazy loading must be implemented
+- No server-side rendering (SSR) required
+- No mobile app; web application only
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+### 1.4 Functional Requirements
 
-## Building
+**User Capabilities**
+- User registration and login
+- Browse movies/events by category and city
+- View event details (description, cast, duration, rating)
+- View available shows and timings
+- Select seats and number of tickets
+- Book tickets and view booking confirmation
+- View booking history
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+### 1.5 Non-Functional Requirements
+- Modular and scalable Angular architecture
+- Clean separation of concerns
+- Responsive UI
+- Maintainable folder structure
+- Strong typing and RxJS best practices
+- Route-level access control
+- Error handling and loading states
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+### 1.6 User Flows (High Level)
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+**User Flow – Booking a Ticket**
+1. User logs in
+2. Selects city
+3. Browses movies/events
+4. Selects a movie
+5. Chooses show time
+6. Selects seats
+7. Proceeds to payment
+8. Views booking confirmation
 
-```bash
-ng test
-```
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## 2. DETAILED LIST OF FEATURES
 
-```bash
-ng e2e
-```
+### 2.1 User-Facing Features
+- User authentication (login/register/logout)
+- City-based event browsing
+- Movie and event listing
+- Event detail page
+- Show timing selection
+- Seat selection UI
+- Booking confirmation page
+- Booking history
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+### 2.3 Payment and Booking Features
+- Ticket price calculation
+- Convenience fee calculation
+- Mock payment processing
+- Booking confirmation
+- Ticket summary generation
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+---
+
+### 2.4 Notifications and Communication
+- Booking success message
+- Payment failure message
+- Session timeout handling
+- Optional email/SMS simulation (UI only)
+
+---
+
+### 2.5 Security and Access Control
+- Role-based access (User vs Admin)
+- Route guards
+- Token-based authentication (mock JWT)
+- Secure route segregation
+
+---
+
+## 3. ANGULAR-SPECIFIC TECHNICAL BREAKDOWN
+
+### 3.1 Feature Modules (Lazy Loaded)
+- AuthModule
+- UserModule
+- MoviesModule
+- BookingModule
+- PaymentModule
+- CoreModule
+- SharedModule
+
+---
+
+### 3.2 Components
+
+**Container (Smart) Components**
+- MovieListContainer
+- MovieDetailContainer
+- BookingContainer
+- SeatSelectionContainer
+- AdminDashboardContainer
+
+**Presentational (Dumb) Components**
+- MovieCardComponent
+- ShowTimeComponent
+- SeatComponent
+- BookingSummaryComponent
+- Button / Modal components
+
+---
+
+### 3.3 Custom Directives
+- RoleBasedAccessDirective
+- HighlightSeatDirective
+- ClickOutsideDirective
+
+---
+
+### 3.4 Custom Pipes
+- DurationPipe
+- PriceFormatPipe
+- RatingPipe
+- FilterByCityPipe
+
+---
+
+### 3.5 Services
+- AuthService
+- UserService
+- MovieService
+- BookingService
+- PaymentService
+- AdminService
+- NotificationService
+
+---
+
+### 3.6 Guards
+- AuthGuard
+- AdminGuard
+- BookingGuard
+
+---
+
+### 3.7 Interceptors
+- AuthTokenInterceptor
+- ErrorHandlingInterceptor
+- LoadingInterceptor
+
+---
+
+### 3.8 Shared Module Items
+- Reusable UI components
+- Common pipes and directives
+- Form validators
+- Constants and enums
+
+---
+
+## Submission Expectations
+- Clean folder structure
+- README explaining setup and assumptions
+- Screenshots or short demo (optional)
+- Focus on architecture over styling
