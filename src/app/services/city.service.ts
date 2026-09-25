@@ -2,7 +2,7 @@ import { Injectable, signal } from '@angular/core';
 
 export const CITIES = [
   'Bengaluru', 'Mumbai', 'New Delhi', 'Chennai', 'Hyderabad',
-  'Pune', 'Kolkata', 'Ahmedabad', 'Jaipur', 'Kochin'
+  'Pune', 'Kolkata', 'Ahmedabad', 'Jaipur', 'Kochin2'
 ];
 
 @Injectable({ providedIn: 'root' })
